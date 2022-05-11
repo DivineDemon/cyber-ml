@@ -42,7 +42,7 @@ def getOTPApi(phone):
 
 # Get Client IP Address
 def client_ip():
-    ip = request.remote_addr
+    ip = request.headers.getlist("X-Forwarded-For")[0]
     return ip
 
 

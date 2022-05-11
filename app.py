@@ -52,7 +52,10 @@ def client_country():
     response = requests.get("http://ip-api.com/json/{}".format(ip))
     js = response.json()
     country = js['countryCode']
-    return country
+    if country:
+        return country
+    else:
+        return "User IP Not Accessible!"
 
 
 # Import Model and Predict

@@ -100,6 +100,24 @@ def home():
     return render_template("login.html")
 
 
+@app.route("/ip")
+def client_ip_show():
+    ip = request.headers.getlist("X-Forwarded-For")[0]
+    return "Your IP Address = " + ip
+
+
+@app.route("/country")
+def client_country_show():
+    ip = client_ip()
+    response = requests.get("http://ip-api.com/json/{}".format(ip))
+    js = response.json()
+    country = js['countryCode']
+    if country:
+        return "Your Country is = " + country
+    else:
+        return "User IP Not Accessible!"
+
+
 @app.route("/getOTP", methods=['POST'])
 def getOTP():
     phone = request.form['phone']
